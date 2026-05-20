@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:grocerry/screens/banner.dart';
+import 'package:grocerry/screens/animationScreen.dart';
 
 class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
@@ -109,7 +110,7 @@ class _HomescreenState extends State<Homescreen> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
+                          color: Colors.grey.withValues(alpha: 0.5),
                           spreadRadius: 2,
                           blurRadius: 5,
                           offset: Offset(0, 3), // changes position of shadow
@@ -149,7 +150,10 @@ class _HomescreenState extends State<Homescreen> {
                             style: TextStyle(fontSize: 14, color: Colors.white),
                           ),
                           onPressed: () {
-                            // Add to cart functionality
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => Animationscreen()),
+                            );
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
@@ -170,7 +174,7 @@ class _HomescreenState extends State<Homescreen> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
+                          color: Colors.grey.withValues(alpha: 0.5),
                           spreadRadius: 2,
                           blurRadius: 5,
                           offset: Offset(0, 3), // changes position of shadow
@@ -231,7 +235,7 @@ class _HomescreenState extends State<Homescreen> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
+                          color: Colors.grey.withValues(alpha: 0.5),
                           spreadRadius: 2,
                           blurRadius: 5,
                           offset: Offset(0, 3), // changes position of shadow
@@ -292,7 +296,7 @@ class _HomescreenState extends State<Homescreen> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
+                          color: Colors.grey.withValues(alpha: 0.5),
                           spreadRadius: 2,
                           blurRadius: 5,
                           offset: Offset(0, 3), // changes position of shadow
@@ -395,7 +399,7 @@ class _HomescreenState extends State<Homescreen> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
+                          color: Colors.grey.withValues(alpha: 0.5),
                           spreadRadius: 2,
                           blurRadius: 5,
                           offset: Offset(0, 3), // changes position of shadow
@@ -456,7 +460,7 @@ class _HomescreenState extends State<Homescreen> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
+                          color: Colors.grey.withValues(alpha: 0.5),
                           spreadRadius: 2,
                           blurRadius: 5,
                           offset: Offset(0, 3), // changes position of shadow
@@ -517,7 +521,7 @@ class _HomescreenState extends State<Homescreen> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
+                          color: Colors.grey.withValues(alpha: 0.5),
                           spreadRadius: 2,
                           blurRadius: 5,
                           offset: Offset(0, 3), // changes position of shadow
@@ -578,7 +582,7 @@ class _HomescreenState extends State<Homescreen> {
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
+                          color: Colors.grey.withValues(alpha: 0.5),
                           spreadRadius: 2,
                           blurRadius: 5,
                           offset: Offset(0, 3), // changes position of shadow

@@ -22,17 +22,15 @@ class BannerWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(20),
       ),
       child: Row(
-        // mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: SizedBox(
-              width: 60,
-              height: 60,
+              width: 50,
+              height: 50,
               child: Image.asset(fit: BoxFit.cover, imgurl),
             ),
           ),
-          // SizedBox(width: 30),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Text(

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:grocerry/screens/bottomNavigation.dart';
+import 'package:grocerry/screens/cartScreen.dart';
+import 'package:grocerry/screens/homeScreen.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -51,12 +54,23 @@ class _AnimationscreenState extends State<Animationscreen> {
                 borderRadius: BorderRadius.circular(20),
               ),
               child: Center(
-                child: Text(
-                  "Continue",
-                  style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                child: GestureDetector(
+                  onTap: () {
+                    // Navigator.pushReplacement(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => Bottomnavigation(),
+                    //   ),
+                    // );
+                    Navigator.pop(context);
+                  },
+                  child: Text(
+                    "Continue",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),

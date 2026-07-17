@@ -8,8 +8,6 @@ class Cartscreen extends StatefulWidget {
   State<Cartscreen> createState() => _CartscreenState();
 }
 
-int quantity = 1;
-
 class _CartscreenState extends State<Cartscreen> {
   @override
   Widget build(BuildContext context) {
@@ -34,70 +32,81 @@ class _CartscreenState extends State<Cartscreen> {
               itemBuilder: (BuildContext context, int index) {
                 final item = cart[index];
                 return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: SizedBox(
-                    height: 90,
-                    child: ListTile(
-                      tileColor: Colors.blue.shade50,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                        side: BorderSide(color: Colors.blue.shade200, width: 1),
-                      ),
-                      leading: Image.asset(item.img),
-                      title: Text(item.title),
-                      subtitle: Text(item.price),
-                      
-                      trailing: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            cart.removeAt(index);
-                          });
-                        },
-                      
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 25,
-                              height: 25,
-                              decoration: BoxDecoration(
-                                color: Colors.transparent,
-                                shape: BoxShape.circle,
-                                border: Border.all(color: Colors.black),
-                              ),
-                              child: Icon(Icons.close),
-                            ),
-                            SizedBox(height: 10,),
-                            Row(
-               
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      if (quantity > 1) {
-                                        quantity--;
-                                      }
-                                    });
-                                  },
-                                  child: Icon(Icons.remove, size: 20),
-                                ),
-                    
-                                Text("$quantity", style: TextStyle(fontSize: 20)),
-                                GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      quantity++;
-                                    });
-                                  },
-                                  child: Icon(Icons.add, size: 20),
-                                ),
-                              ],
-                            ),
-                          ],
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: Colors.blue.shade50,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.blue.shade200),
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5, left: 10),
+                          child: Image.asset(item.img, width: 70, height: 70),
                         ),
-                      ),
+                        const SizedBox(width: 20),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 10),
+                                child: Text(
+                                  item.title,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                              Text(item.price),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  IconButton(
+                                    icon: const Icon(Icons.remove),
+                                    onPressed: () {
+                                      setState(() {
+                                        if (cart[index].count > 1) {
+                                          cart[index].count -= 1;
+                                              }
+                                      });
+                                    },
+                                  ),
+
+                                  Text(
+                                    "${cart[index].count}",
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+
+                                  IconButton(
+                                    icon: const Icon(Icons.add),
+                                    onPressed: () {
+                                      setState(() {
+                                        cart[index].count += 1;
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        IconButton(
+                          icon: const Icon(Icons.close),
+                          onPressed: () {
+                            setState(() {
+                              cart.removeAt(index);
+                            });
+                          },
+                        ),
+                      ],
                     ),
                   ),
                 );

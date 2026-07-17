@@ -18,15 +18,31 @@ class _HomescreenState extends State<Homescreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Drawer(),
       appBar: AppBar(
-        toolbarHeight: 80,
+        centerTitle: true,
+        toolbarHeight: 60,
         title: Center(
           child: Padding(
-            padding: const EdgeInsets.only(top: 30.0),
-            child: Image.asset(
-              'assets/images/logo.png',
-              height: 50,
-              fit: BoxFit.cover,
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/logo.png',
+                  height: 35,
+                  fit: BoxFit.cover,
+                ),
+                SizedBox(width: 5),
+                Text(
+                  "Nector",
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
+                  ),
+                ),
+              ],
             ),
           ),
         ),
@@ -170,6 +186,7 @@ class _HomescreenState extends State<Homescreen> {
                                   title: 'Organic Bananas',
                                   img: 'assets/images/product_1.png',
                                   price: '\$4.99',
+                                  count: 1,
                                 ),
                               );
 
@@ -182,15 +199,6 @@ class _HomescreenState extends State<Homescreen> {
                                 ),
                               );
                             }
-                            if (!alreadyExists) {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Animationscreen(),
-                              ),
-                            );
-                              
-                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
@@ -202,6 +210,7 @@ class _HomescreenState extends State<Homescreen> {
                       ],
                     ),
                   ),
+                 
                   Container(
                     margin: EdgeInsets.all(20),
                     height: 250,
@@ -214,7 +223,7 @@ class _HomescreenState extends State<Homescreen> {
                           color: Colors.grey.withValues(alpha: 0.5),
                           spreadRadius: 2,
                           blurRadius: 5,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: Offset(0, 3),
                         ),
                       ],
                     ),
@@ -251,12 +260,38 @@ class _HomescreenState extends State<Homescreen> {
                             style: TextStyle(fontSize: 14, color: Colors.white),
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Animationscreen(),
-                              ),
+                            final alreadyExists = cart.any(
+                              (item) => item.title == 'Apple',
                             );
+
+                            if (alreadyExists) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'This item is already in the cart.',
+                                  ),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            } else {
+                              cart.add(
+                                Module(
+                                  title: 'Apple',
+                                  img: 'assets/images/product_2.png',
+                                  price: '\$4.99',
+                                  count: 1,
+                                ),
+                              );
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Item added to cart successfully.',
+                                  ),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
@@ -268,6 +303,7 @@ class _HomescreenState extends State<Homescreen> {
                       ],
                     ),
                   ),
+                 
                   Container(
                     margin: EdgeInsets.all(20),
                     height: 250,
@@ -287,10 +323,10 @@ class _HomescreenState extends State<Homescreen> {
                     padding: EdgeInsets.all(10),
                     child: Column(
                       children: [
-                        Image.asset('assets/images/product_1.png'),
+                        Image.asset('assets/images/product_3.png'),
                         SizedBox(height: 20),
                         Text(
-                          'Organic Bananas',
+                          'Fresh Tomatos',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -303,7 +339,7 @@ class _HomescreenState extends State<Homescreen> {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          '\$4.99 Per lb',
+                          '\$7.99 Per lb',
                           style: TextStyle(fontSize: 14, color: Colors.green),
                         ),
                         SizedBox(height: 10),
@@ -317,12 +353,38 @@ class _HomescreenState extends State<Homescreen> {
                             style: TextStyle(fontSize: 14, color: Colors.white),
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Animationscreen(),
-                              ),
+                            final alreadyExists = cart.any(
+                              (item) => item.title == 'Fresh Tomatos',
                             );
+
+                            if (alreadyExists) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'This item is already in the cart.',
+                                  ),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            } else {
+                              cart.add(
+                                Module(
+                                  title: 'Fresh Tomatos',
+                                  img: 'assets/images/product_3.png',
+                                  price: '\$7.99',
+                                  count: 1,
+                                ),
+                              );
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Item added to cart successfully.',
+                                  ),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
@@ -334,6 +396,7 @@ class _HomescreenState extends State<Homescreen> {
                       ],
                     ),
                   ),
+                 
                   Container(
                     margin: EdgeInsets.all(20),
                     height: 250,
@@ -353,10 +416,10 @@ class _HomescreenState extends State<Homescreen> {
                     padding: EdgeInsets.all(10),
                     child: Column(
                       children: [
-                        Image.asset('assets/images/product_2.png'),
+                        Image.asset('assets/images/product_4.png'),
                         SizedBox(height: 20),
                         Text(
-                          'Organic Bananas',
+                          'Garlic',
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -364,12 +427,12 @@ class _HomescreenState extends State<Homescreen> {
                         ),
                         SizedBox(height: 5),
                         Text(
-                          '7pcs, Priceg',
+                          '3pcs, Priceg',
                           style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
                         SizedBox(height: 5),
                         Text(
-                          '\$4.99 Per lb',
+                          '\$2.99 Per lb',
                           style: TextStyle(fontSize: 14, color: Colors.green),
                         ),
                         SizedBox(height: 10),
@@ -383,12 +446,38 @@ class _HomescreenState extends State<Homescreen> {
                             style: TextStyle(fontSize: 14, color: Colors.white),
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Animationscreen(),
-                              ),
+                            final alreadyExists = cart.any(
+                              (item) => item.title == 'Fresh Tomatos',
                             );
+
+                            if (alreadyExists) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'This item is already in the cart.',
+                                  ),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            } else {
+                              cart.add(
+                                Module(
+                                  title: 'Garlic',
+                                  img: 'assets/images/product_4.png',
+                                  price: '\$2.99',
+                                  count: 1,
+                                ),
+                              );
+
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text(
+                                    'Item added to cart successfully.',
+                                  ),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            }
                           },
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.green,
@@ -400,6 +489,7 @@ class _HomescreenState extends State<Homescreen> {
                       ],
                     ),
                   ),
+                
                 ],
               ),
             ),
@@ -438,6 +528,7 @@ class _HomescreenState extends State<Homescreen> {
                 ),
               ],
             ),
+            
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
               child: Row(
@@ -454,7 +545,7 @@ class _HomescreenState extends State<Homescreen> {
                           color: Colors.grey.withValues(alpha: 0.5),
                           spreadRadius: 2,
                           blurRadius: 5,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: Offset(0, 3),
                         ),
                       ],
                     ),
@@ -586,7 +677,7 @@ class _HomescreenState extends State<Homescreen> {
                           color: Colors.grey.withValues(alpha: 0.5),
                           spreadRadius: 2,
                           blurRadius: 5,
-                          offset: Offset(0, 3), // changes position of shadow
+                          offset: Offset(0, 3),
                         ),
                       ],
                     ),
@@ -678,8 +769,7 @@ class _HomescreenState extends State<Homescreen> {
                           '\$4.99 Per lb',
                           style: TextStyle(fontSize: 14, color: Colors.green),
                         ),
-                        SizedBox(height: 10),
-                        ElevatedButton.icon(
+                         ElevatedButton.icon(
                           icon: Icon(
                             Icons.add_shopping_cart,
                             color: Colors.white,
@@ -692,7 +782,6 @@ class _HomescreenState extends State<Homescreen> {
                             final alreadyExists = cart.any(
                               (item) => item.title == 'Organic Bananas',
                             );
-
                             if (alreadyExists) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
@@ -708,6 +797,7 @@ class _HomescreenState extends State<Homescreen> {
                                   title: 'Organic Bananas',
                                   img: 'assets/images/product_4.png',
                                   price: '\$4.99',
+                                  count: 1,
                                 ),
                               );
 

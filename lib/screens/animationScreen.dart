@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:grocerry/screens/bottomNavigation.dart';
-import 'package:grocerry/screens/cartScreen.dart';
-import 'package:grocerry/screens/homeScreen.dart';
 import 'package:lottie/lottie.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -36,7 +33,7 @@ class _AnimationscreenState extends State<Animationscreen> {
                 baseColor: Colors.red,
                 highlightColor: Colors.yellow,
                 child: Text(
-                  'Payment Successful',
+                  'Add to Cart Successful',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 40.0, fontWeight: FontWeight.bold),
                 ),
@@ -56,12 +53,6 @@ class _AnimationscreenState extends State<Animationscreen> {
               child: Center(
                 child: GestureDetector(
                   onTap: () {
-                    // Navigator.pushReplacement(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => Bottomnavigation(),
-                    //   ),
-                    // );
                     Navigator.pop(context);
                   },
                   child: Text(

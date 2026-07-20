@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:grocerry/screens/accountScreen.dart';
-import 'package:grocerry/screens/cartScreen.dart';
-import 'package:grocerry/screens/exploreScreen.dart';
-import 'package:grocerry/screens/favouriteScreen.dart';
-import 'package:grocerry/screens/homeScreen.dart';
+import 'package:grocerry/screens/account_screen.dart';
+import 'package:grocerry/screens/cart_screen.dart';
+import 'package:grocerry/screens/explore_screen.dart';
+import 'favourite_screen.dart';
+import 'package:grocerry/screens/home_screen.dart';
 
 class Bottomnavigation extends StatefulWidget {
   final int initialIndex;
@@ -17,13 +17,14 @@ class _BottomnavigationState extends State<Bottomnavigation> {
   late int activeTab;
   late List<int> tabHistory;
 
+  @override
   void initState() {
     super.initState();
     activeTab = widget.initialIndex;
     tabHistory = [widget.initialIndex];
   }
 
-  void changeTab(index) {
+  void changeTab(int index) {
     setState(() {
       activeTab = index;
       if (tabHistory.isEmpty || tabHistory.last != index) {

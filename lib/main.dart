@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:grocerry/screens/bottomNavigation.dart';
+import 'package:grocerry/screens/bottom_navigation.dart';
 
 void main() {
   runApp(Myapp());

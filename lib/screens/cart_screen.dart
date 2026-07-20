@@ -8,6 +8,14 @@ class Cartscreen extends StatefulWidget {
   State<Cartscreen> createState() => _CartscreenState();
 }
 
+double getTotalprice() {
+  double total = 0;
+  for (var item in cart) {
+    total += item.price * item.count;
+  }
+  return total;
+}
+
 class _CartscreenState extends State<Cartscreen> {
   @override
   Widget build(BuildContext context) {
@@ -43,7 +51,11 @@ class _CartscreenState extends State<Cartscreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(top: 5, left: 10),
+                          padding: const EdgeInsets.only(
+                            top: 5,
+                            left: 10,
+                            bottom: 10,
+                          ),
                           child: Image.asset(item.img, width: 70, height: 70),
                         ),
                         const SizedBox(width: 20),
@@ -61,7 +73,7 @@ class _CartscreenState extends State<Cartscreen> {
                                   ),
                                 ),
                               ),
-                              Text(item.price),
+                              Text("${item.price}"),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -71,7 +83,7 @@ class _CartscreenState extends State<Cartscreen> {
                                       setState(() {
                                         if (cart[index].count > 1) {
                                           cart[index].count -= 1;
-                                              }
+                                        }
                                       });
                                     },
                                   ),
@@ -97,7 +109,6 @@ class _CartscreenState extends State<Cartscreen> {
                             ],
                           ),
                         ),
-
                         IconButton(
                           icon: const Icon(Icons.close),
                           onPressed: () {
@@ -112,6 +123,48 @@ class _CartscreenState extends State<Cartscreen> {
                 );
               },
             ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(15),
+        height: 90,
+        decoration: const BoxDecoration(
+          color: Colors.white,
+          boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 5)],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Total", style: TextStyle(fontSize: 16)),
+                Text(
+                  "\$${getTotalprice().toStringAsFixed(2)}",
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Color(0xfff18701),
+                padding: EdgeInsets.only(
+                  left: 25,
+                  right: 25,
+                  top: 20,
+                  bottom: 20,
+                ),
+              ),
+              onPressed: () {},
+              child: const Text("Checkout", style: TextStyle(fontSize: 18)),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

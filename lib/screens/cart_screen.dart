@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocerry/screens/checkout_screen.dart';
 import 'package:grocerry/screens/module.dart';
 
 class Cartscreen extends StatefulWidget {
@@ -8,13 +9,7 @@ class Cartscreen extends StatefulWidget {
   State<Cartscreen> createState() => _CartscreenState();
 }
 
-double getTotalprice() {
-  double total = 0;
-  for (var item in cart) {
-    total += item.price * item.count;
-  }
-  return total;
-}
+
 
 class _CartscreenState extends State<Cartscreen> {
   @override
@@ -159,7 +154,23 @@ class _CartscreenState extends State<Cartscreen> {
                   bottom: 20,
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                if (cart.isEmpty) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Your cart is empty. Add items first.'),
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                  return;
+                }
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => const CheckoutScreen(),
+                  ),
+                ).then((_) => setState(() {}));
+              },
               child: const Text("Checkout", style: TextStyle(fontSize: 18)),
             ),
           ],

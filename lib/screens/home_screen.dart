@@ -1,7 +1,11 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:grocerry/screens/account_screen.dart';
 import 'package:grocerry/screens/banner.dart';
-import 'package:grocerry/screens/animation_screen.dart';
+import 'package:grocerry/screens/cart_screen.dart';
+import 'package:grocerry/screens/checkout_screen.dart';
+import 'package:grocerry/screens/explore_screen.dart';
+import 'package:grocerry/screens/favourite_screen.dart';
 import 'package:grocerry/screens/module.dart';
 
 class Homescreen extends StatefulWidget {
@@ -15,7 +19,7 @@ class _HomescreenState extends State<Homescreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: _buildDrawer(context),
       appBar: AppBar(
         centerTitle: true,
         toolbarHeight: 60,
@@ -319,14 +323,7 @@ class _HomescreenState extends State<Homescreen> {
                     price: 4.99,
                     unit: '7pcs, Priceg',
                     onFavoriteChanged: () => setState(() {}),
-                    onAddToCart: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Animationscreen(),
-                        ),
-                      );
-                    },
+                    onAddToCart: () {},
                   ),
                   ProductCard(
                     title: 'Tomatoes',
@@ -334,14 +331,7 @@ class _HomescreenState extends State<Homescreen> {
                     price: 4.99,
                     unit: '7pcs, Priceg',
                     onFavoriteChanged: () => setState(() {}),
-                    onAddToCart: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Animationscreen(),
-                        ),
-                      );
-                    },
+                    onAddToCart: () {},
                   ),
                   ProductCard(
                     title: 'Organic Bananas',
@@ -349,14 +339,7 @@ class _HomescreenState extends State<Homescreen> {
                     price: 4.99,
                     unit: '7pcs, Priceg',
                     onFavoriteChanged: () => setState(() {}),
-                    onAddToCart: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Animationscreen(),
-                        ),
-                      );
-                    },
+                    onAddToCart: () {},
                   ),
                   ProductCard(
                     title: 'Organic Bananas',
@@ -435,6 +418,7 @@ class _HomescreenState extends State<Homescreen> {
                 ),
               ],
             ),
+
             CarouselSlider(
               options: CarouselOptions(
                 height: 120,
@@ -474,6 +458,355 @@ class _HomescreenState extends State<Homescreen> {
               ],
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+  // ─── Beautiful Drawer ──────────────────────────────────────────────────────
+  Widget _buildDrawer(BuildContext context) {
+    return Drawer(
+      width: MediaQuery.of(context).size.width * 0.78,
+      child: Column(
+        children: [
+          // ── Gradient Header ──
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.only(
+                top: 56, left: 20, right: 20, bottom: 28),
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF53B175), Color(0xFF006E2F)],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Avatar
+                Container(
+                  width: 70,
+                  height: 70,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: Colors.white,
+                    border: Border.all(color: Colors.white, width: 3),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.2),
+                        blurRadius: 8,
+                        offset: const Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: const Icon(
+                    Icons.person_rounded,
+                    size: 40,
+                    color: Color(0xFF53B175),
+                  ),
+                ),
+                const SizedBox(height: 14),
+                const Text(
+                  'Abdul Basit',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    letterSpacing: 0.4,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                const Text(
+                  'abdulbasit@email.com',
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 13,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                // Cart badge chip
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: Colors.white.withValues(alpha: 0.2),
+                    borderRadius: BorderRadius.circular(20),
+                    border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.5), width: 1),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      const Icon(Icons.shopping_cart_rounded,
+                          color: Colors.white, size: 14),
+                      const SizedBox(width: 5),
+                      Text(
+                        '${cart.length} item${cart.length == 1 ? '' : 's'} in cart',
+                        style: const TextStyle(
+                            color: Colors.white, fontSize: 12),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          // ── Nav Items ──
+          Expanded(
+            child: ListView(
+              padding: const EdgeInsets.symmetric(vertical: 8),
+              children: [
+                const Padding(
+                  padding: EdgeInsets.only(left: 20, top: 10, bottom: 4),
+                  child: Text(
+                    'MENU',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                ),
+                _drawerTile(
+                  context,
+                  icon: Icons.home_rounded,
+                  label: 'Home',
+                  color: const Color(0xFF53B175),
+                  onTap: () => Navigator.pop(context),
+                ),
+                _drawerTile(
+                  context,
+                  icon: Icons.explore_rounded,
+                  label: 'Explore',
+                  color: const Color(0xFF4F6EF7),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const Explorescreen()),
+                    );
+                  },
+                ),
+                _drawerTile(
+                  context,
+                  icon: Icons.shopping_cart_rounded,
+                  label: 'My Cart',
+                  color: const Color(0xFFF18701),
+                  badge: cart.isNotEmpty ? '${cart.length}' : null,
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const Cartscreen()),
+                    ).then((_) => setState(() {}));
+                  },
+                ),
+                _drawerTile(
+                  context,
+                  icon: Icons.favorite_rounded,
+                  label: 'Favourites',
+                  color: const Color(0xFFE91E63),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const Favouritescreen()),
+                    );
+                  },
+                ),
+                _drawerTile(
+                  context,
+                  icon: Icons.receipt_long_rounded,
+                  label: 'Checkout',
+                  color: const Color(0xFF009688),
+                  onTap: () {
+                    Navigator.pop(context);
+                    if (cart.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Add items to cart first.'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    } else {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (_) => const CheckoutScreen()),
+                      ).then((_) => setState(() {}));
+                    }
+                  },
+                ),
+
+                const Padding(
+                  padding:
+                      EdgeInsets.only(left: 20, top: 16, bottom: 4),
+                  child: Text(
+                    'ACCOUNT',
+                    style: TextStyle(
+                      fontSize: 11,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey,
+                      letterSpacing: 1.5,
+                    ),
+                  ),
+                ),
+                _drawerTile(
+                  context,
+                  icon: Icons.person_rounded,
+                  label: 'My Account',
+                  color: const Color(0xFF9C27B0),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (_) => const Accountscreen()),
+                    );
+                  },
+                ),
+                _drawerTile(
+                  context,
+                  icon: Icons.settings_rounded,
+                  label: 'Settings',
+                  color: Colors.blueGrey,
+                  onTap: () => Navigator.pop(context),
+                ),
+                _drawerTile(
+                  context,
+                  icon: Icons.help_rounded,
+                  label: 'Help & Support',
+                  color: const Color(0xFF00BCD4),
+                  onTap: () => Navigator.pop(context),
+                ),
+
+                const Divider(height: 32, indent: 20, endIndent: 20),
+
+                // ── Logout ──
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 16, vertical: 4),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(12),
+                    onTap: () => Navigator.pop(context),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 14),
+                      decoration: BoxDecoration(
+                        color: Colors.red.shade50,
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(color: Colors.red.shade100),
+                      ),
+                      child: Row(
+                        children: [
+                          Icon(Icons.logout_rounded,
+                              color: Colors.red.shade400, size: 22),
+                          const SizedBox(width: 14),
+                          Text(
+                            'Logout',
+                            style: TextStyle(
+                              color: Colors.red.shade500,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 12),
+              ],
+            ),
+          ),
+
+          // ── Footer ──
+          Container(
+            padding: const EdgeInsets.symmetric(vertical: 14),
+            color: const Color(0xFFF8F9FB),
+            child: Center(
+              child: Text(
+                'Nector  v1.0.0',
+                style: TextStyle(
+                  color: Colors.grey.shade500,
+                  fontSize: 12,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _drawerTile(
+    BuildContext context, {
+    required IconData icon,
+    required String label,
+    required Color color,
+    required VoidCallback onTap,
+    String? badge,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+      child: Material(
+        color: Colors.transparent,
+        borderRadius: BorderRadius.circular(12),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(12),
+          onTap: onTap,
+          child: Container(
+            padding:
+                const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            child: Row(
+              children: [
+                Container(
+                  padding: const EdgeInsets.all(8),
+                  decoration: BoxDecoration(
+                    color: color.withValues(alpha: 0.12),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  child: Icon(icon, color: color, size: 20),
+                ),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: Text(
+                    label,
+                    style: const TextStyle(
+                      fontSize: 15,
+                      fontWeight: FontWeight.w500,
+                      color: Color(0xFF181725),
+                    ),
+                  ),
+                ),
+                if (badge != null)
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: color,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Text(
+                      badge,
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  )
+                else
+                  Icon(Icons.chevron_right_rounded,
+                      color: Colors.grey.shade400, size: 18),
+              ],
+            ),
+          ),
         ),
       ),
     );

@@ -51,18 +51,16 @@ class _CheckoutScreenState extends State<CheckoutScreen>
     super.dispose();
   }
 
-  // ---------- helpers ----------
   double get _total => getTotalprice();
 
   void _placeOrder() async {
     if (!_formKey.currentState!.validate()) return;
 
-    // button press animation
     await _btnController.reverse();
     await _btnController.forward();
 
     setState(() => _isPlacing = true);
-    await Future.delayed(const Duration(seconds: 2)); // simulate network
+    await Future.delayed(const Duration(seconds: 2)); 
     setState(() => _isPlacing = false);
 
     if (!mounted) return;
@@ -180,9 +178,8 @@ class _CheckoutScreenState extends State<CheckoutScreen>
         child: ListView(
           padding: const EdgeInsets.all(16),
           children: [
-            // ───── Order Summary ─────
             _sectionCard(
-              title: 'Order Summary',
+              title: 'Order Summary ',
               icon: Icons.receipt_long_rounded,
               child: Column(
                 children: [
@@ -292,7 +289,6 @@ class _CheckoutScreenState extends State<CheckoutScreen>
 
             const SizedBox(height: 16),
 
-            // ───── Payment Method ─────
             _sectionCard(
               title: 'Payment Method',
               icon: Icons.payment_rounded,
@@ -316,7 +312,6 @@ class _CheckoutScreenState extends State<CheckoutScreen>
 
             const SizedBox(height: 16),
 
-            // ───── Card Details (conditional) ─────
             AnimatedSwitcher(
               duration: const Duration(milliseconds: 300),
               child: _paymentMethod == 'card'
@@ -328,7 +323,7 @@ class _CheckoutScreenState extends State<CheckoutScreen>
                         children: [
                           _buildField(
                             controller: _cardNumberCtrl,
-                            label: 'Card Number',
+                            label: 'Card Number ',
                             hint: '1234 5678 9012 3456',
                             icon: Icons.credit_card,
                             keyboardType: TextInputType.number,
@@ -438,7 +433,6 @@ class _CheckoutScreenState extends State<CheckoutScreen>
 
             const SizedBox(height: 24),
 
-            // ───── Place Order Button ─────
             ScaleTransition(
               scale: _btnScale,
               child: SizedBox(
@@ -629,7 +623,6 @@ class _CheckoutScreenState extends State<CheckoutScreen>
               ),
             ),
             const Spacer(),
-            // Custom radio indicator (avoids deprecated Radio groupValue/onChanged)
             AnimatedContainer(
               duration: const Duration(milliseconds: 200),
               width: 22,

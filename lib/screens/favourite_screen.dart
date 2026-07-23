@@ -73,7 +73,10 @@ class _FavouritescreenState extends State<Favouritescreen> {
                           SizedBox(height: 5),
                           Text(
                             "\$${item.price.toStringAsFixed(2)}",
-                            style: TextStyle(fontSize: 16, color: Colors.grey.shade600),
+                            style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.grey.shade600,
+                            ),
                           ),
                         ],
                       ),
@@ -84,7 +87,11 @@ class _FavouritescreenState extends State<Favouritescreen> {
                             favItems.removeAt(index);
                           });
                         },
-                        icon: Icon(Icons.delete, size: 28, color: Colors.red.shade400),
+                        icon: Icon(
+                          Icons.delete,
+                          size: 28,
+                          color: Colors.red.shade400,
+                        ),
                       ),
                     ],
                   ),

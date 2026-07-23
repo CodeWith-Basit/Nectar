@@ -9,8 +9,6 @@ class Cartscreen extends StatefulWidget {
   State<Cartscreen> createState() => _CartscreenState();
 }
 
-
-
 class _CartscreenState extends State<Cartscreen> {
   @override
   Widget build(BuildContext context) {
@@ -166,9 +164,7 @@ class _CartscreenState extends State<Cartscreen> {
                 }
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (_) => const CheckoutScreen(),
-                  ),
+                  MaterialPageRoute(builder: (_) => const CheckoutScreen()),
                 ).then((_) => setState(() {}));
               },
               child: const Text("Checkout", style: TextStyle(fontSize: 18)),

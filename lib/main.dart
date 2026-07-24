@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:grocerry/firebase_options.dart';
-import 'package:grocerry/screens/signupScreen.dart';
 import 'package:grocerry/screens/splashScreen.dart';
 
 void main() async {

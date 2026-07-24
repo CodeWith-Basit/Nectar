@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:grocerry/screens/onboardScreen.dart';
 import 'package:grocerry/screens/signupScreen.dart';
-import 'package:lottie/lottie.dart';
+
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -16,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Timer(Duration(seconds: 5), () {
       Navigator.of(
         context,
-      ).pushReplacement(MaterialPageRoute<void>(builder: (context) => Signupscreen()));
+      ).pushReplacement(MaterialPageRoute<void>(builder: (context) => Onboardscreen()));
     });
     super.initState();
   }

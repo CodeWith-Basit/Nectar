@@ -14,6 +14,7 @@ class _CartscreenState extends State<Cartscreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+         automaticallyImplyLeading: false,
         title: Center(
           child: Text(
             "My Cart",

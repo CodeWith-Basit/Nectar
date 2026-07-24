@@ -287,6 +287,7 @@ class _ExplorescreenState extends State<Explorescreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
@@ -295,7 +296,7 @@ class _ExplorescreenState extends State<Explorescreen> {
           style: TextStyle(
             color: Color(0xFF181725),
             fontWeight: FontWeight.bold,
-            fontSize: 22,
+            fontSize: 25,
           ),
         ),
       ),

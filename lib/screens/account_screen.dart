@@ -1,17 +1,26 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grocerry/screens/loginScreen.dart';
 
 class Accountscreen extends StatefulWidget {
-  const Accountscreen({super.key});
+  Accountscreen({super.key});
 
   @override
   State<Accountscreen> createState() => _AccountscreenState();
 }
 
 class _AccountscreenState extends State<Accountscreen> {
+  User? currentUser = FirebaseAuth.instance.currentUser;
   bool _notificationsEnabled = true;
   bool _darkModeEnabled = false;
+
+  Future<DocumentSnapshot> getUserData() async {
+    return await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser!.uid)
+        .get();
+  }
 
   void _showOrdersModal() {
     showModalBottomSheet(
@@ -276,8 +285,8 @@ class _AccountscreenState extends State<Accountscreen> {
         content: const Text('Are you sure you want to log out of Nector?'),
         actions: [
           TextButton(
-            onPressed: ()  {
-               Navigator.pop(context);
+            onPressed: () {
+              Navigator.pop(context);
             },
             child: const Text('Cancel', style: TextStyle(color: Colors.grey)),
           ),
@@ -290,13 +299,12 @@ class _AccountscreenState extends State<Accountscreen> {
               ),
             ),
             onPressed: () async {
-
-               await FirebaseAuth.instance.signOut();
+              await FirebaseAuth.instance.signOut();
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (_) => Loginscreen()),
               );
-            
+
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text('Logged out successfully'),
@@ -316,6 +324,7 @@ class _AccountscreenState extends State<Accountscreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
@@ -324,14 +333,13 @@ class _AccountscreenState extends State<Accountscreen> {
           style: TextStyle(
             color: Color(0xFF181725),
             fontWeight: FontWeight.bold,
-            fontSize: 22,
+            fontSize: 25,
           ),
         ),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         children: [
-          // User Profile Card
           Row(
             children: [
               Container(

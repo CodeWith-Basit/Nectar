@@ -126,7 +126,7 @@ class _HomescreenState extends State<Homescreen> {
               style: TextStyle(
                 color: Color(0xFF181725),
                 fontWeight: FontWeight.bold,
-                fontSize: 24,
+                fontSize: 25,
               ),
             ),
           ],
@@ -181,7 +181,7 @@ class _HomescreenState extends State<Homescreen> {
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
+          children: [     
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
               child: Row(
@@ -857,7 +857,7 @@ class _HomescreenState extends State<Homescreen> {
                     Navigator.pop(context);
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (_) => const Accountscreen()),
+                      MaterialPageRoute(builder: (_) =>  Accountscreen()),
                     );
                   },
                 ),

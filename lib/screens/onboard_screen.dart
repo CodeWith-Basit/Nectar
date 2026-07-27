@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:grocerry/screens/signupScreen.dart';
+import 'package:grocerry/screens/signup_screen.dart';
 
 class Onboardscreen extends StatelessWidget {
   const Onboardscreen({super.key});
@@ -68,7 +67,7 @@ class Onboardscreen extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (_) => Signupscreen()),
+                          MaterialPageRoute(builder: (_) => const Signupscreen()),
                         );
                       },
                       child: const Text(

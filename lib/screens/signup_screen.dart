@@ -1,11 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:grocerry/screens/loginScreen.dart';
+import 'package:grocerry/screens/login_screen.dart';
 
 class Signupscreen extends StatefulWidget {
-  Signupscreen({super.key});
+  const Signupscreen({super.key});
 
   @override
   State<Signupscreen> createState() => _SignupscreenState();
@@ -25,7 +24,7 @@ class _SignupscreenState extends State<Signupscreen> {
 
   TextEditingController phoneController = TextEditingController();
 
-  Signup(context) async {
+  Future<void> signup(BuildContext context) async {
     String name = nameController.text.trim();
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
@@ -38,12 +37,12 @@ class _SignupscreenState extends State<Signupscreen> {
           password.isEmpty ||
           confirmPassword.isEmpty ||
           phone.isEmpty) {
-        print('Please fill in all fields');
+        debugPrint('Please fill in all fields');
         return;
       }
 
       if (password != confirmPassword) {
-        print('Passwords do not match');
+        debugPrint('Passwords do not match');
         return;
       }
       final credential = await FirebaseAuth.instance
@@ -52,10 +51,11 @@ class _SignupscreenState extends State<Signupscreen> {
             password: passwordController.text,
           );
       if (credential.user != null) {
-        print('User signed up successfully');
+        debugPrint('User signed up successfully');
+        if (!context.mounted) return;
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (_) => Loginscreen()),
+          MaterialPageRoute(builder: (_) => const Loginscreen()),
         );
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
@@ -67,11 +67,11 @@ class _SignupscreenState extends State<Signupscreen> {
           ),
         );
       } else {
-        print('Failed to sign up user');
+        debugPrint('Failed to sign up user');
       }
     } catch (e) {
-      print('Error signing up: $e');
-
+      debugPrint('Error signing up: $e');
+      if (!context.mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Invalid email or password $e'),
@@ -84,40 +84,35 @@ class _SignupscreenState extends State<Signupscreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(automaticallyImplyLeading: false),
-
-      body: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        child: Column(
-          children: [
-            Image.asset(
-              'assets/images/logo2.png',
-              fit: BoxFit.contain,
-              width: 80,
-              height: 70,
-            ),
-            SizedBox(height: 80),
-            Padding(
-              padding: const EdgeInsets.only(left: 18.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
+      backgroundColor: Colors.white,
+      appBar: AppBar(backgroundColor: Colors.white, elevation: 0, automaticallyImplyLeading: false),
+      body: SafeArea(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Center(
+                  child: Image.asset(
+                    'assets/images/logo2.png',
+                    fit: BoxFit.contain,
+                    width: 80,
+                    height: 70,
+                  ),
+                ),
+                const SizedBox(height: 40),
+                const Text(
                   "Sign Up",
-                  style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold, color: Color(0xFF181725)),
                 ),
-              ),
-            ),
-            SizedBox(height: 10),
-            Padding(
-              padding: const EdgeInsets.only(left: 18.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
+                const SizedBox(height: 8),
+                const Text(
                   "Enter your credentials to continue",
-                  style: TextStyle(fontSize: 14, color: Colors.grey),
+                  style: TextStyle(fontSize: 15, color: Colors.grey),
                 ),
-              ),
-            ),
+                const SizedBox(height: 30),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: TextFormField(
@@ -220,8 +215,9 @@ class _SignupscreenState extends State<Signupscreen> {
                   LengthLimitingTextInputFormatter(11),
                 ],
                 validator: (v) {
-                  if (v == null || v.trim().isEmpty)
+                  if (v == null || v.trim().isEmpty) {
                     return 'Phone Number is required';
+                  }
                   if (v.length != 11) return 'Phone Number must be 11 digits';
                   return null;
                 },
@@ -262,7 +258,7 @@ class _SignupscreenState extends State<Signupscreen> {
                   ),
                 ),
                 onPressed: () async {
-                  await Signup(context);
+                  await signup(context);
                 },
                 child: Text('Sign Up', style: TextStyle(color: Colors.white)),
               ),
@@ -272,12 +268,14 @@ class _SignupscreenState extends State<Signupscreen> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (_) => Loginscreen()),
+                  MaterialPageRoute(builder: (_) => const Loginscreen()),
                 );
               },
               child: Text('Already have an account? Login'),
             ),
-          ],
+            ],
+            ),
+          ),
         ),
       ),
     );

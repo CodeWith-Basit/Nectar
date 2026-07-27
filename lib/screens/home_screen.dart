@@ -5,7 +5,7 @@ import 'package:grocerry/screens/account_screen.dart';
 import 'package:grocerry/screens/cart_screen.dart';
 import 'package:grocerry/screens/explore_screen.dart';
 import 'package:grocerry/screens/favourite_screen.dart';
-import 'package:grocerry/screens/loginScreen.dart';
+import 'package:grocerry/screens/login_screen.dart';
 import 'package:grocerry/screens/module.dart';
 
 class Homescreen extends StatefulWidget {
@@ -97,6 +97,7 @@ class _HomescreenState extends State<Homescreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: false,
       drawer: _buildDrawer(context),
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -178,8 +179,9 @@ class _HomescreenState extends State<Homescreen> {
           const SizedBox(width: 8),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [     
             Padding(
@@ -230,7 +232,7 @@ class _HomescreenState extends State<Homescreen> {
                       Icons.search_rounded,
                       color: Color(0xFF181725),
                     ),
-                    suffixIcon: ((_searchQuery ?? '').isNotEmpty)
+                    suffixIcon: (_searchQuery.isNotEmpty)
                         ? IconButton(
                             icon: const Icon(
                               Icons.clear_rounded,
@@ -621,6 +623,7 @@ class _HomescreenState extends State<Homescreen> {
             const SizedBox(height: 30),
           ],
         ),
+        ),
       ),
     );
   }
@@ -878,7 +881,8 @@ class _HomescreenState extends State<Homescreen> {
             onPressed: ()async{
 
                   await FirebaseAuth.instance.signOut();
-                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => Loginscreen()));
+                  if (!context.mounted) return;
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (_) => const Loginscreen()));
                 }, child: Text("Log Out", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.white),)),
                  SizedBox(height: 10),
 

@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:grocerry/screens/loginScreen.dart';
+import 'package:grocerry/screens/login_screen.dart';
 
 class Accountscreen extends StatefulWidget {
-  Accountscreen({super.key});
+  const Accountscreen({super.key});
 
   @override
   State<Accountscreen> createState() => _AccountscreenState();
@@ -300,6 +300,7 @@ class _AccountscreenState extends State<Accountscreen> {
             ),
             onPressed: () async {
               await FirebaseAuth.instance.signOut();
+              if (!context.mounted) return;
               Navigator.pushReplacement(
                 context,
                 MaterialPageRoute(builder: (_) => Loginscreen()),
@@ -337,7 +338,8 @@ class _AccountscreenState extends State<Accountscreen> {
           ),
         ),
       ),
-      body: ListView(
+      body: SafeArea(
+        child: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         children: [
           Row(
@@ -579,6 +581,7 @@ class _AccountscreenState extends State<Accountscreen> {
           ),
           const SizedBox(height: 20),
         ],
+      ),
       ),
     );
   }

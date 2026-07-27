@@ -22,7 +22,8 @@ class _CartscreenState extends State<Cartscreen> {
           ),
         ),
       ),
-      body: cart.isEmpty
+      body: SafeArea(
+        child: cart.isEmpty
           ? Center(
               child: Text(
                 'Add to cart item or no item yet',
@@ -117,6 +118,7 @@ class _CartscreenState extends State<Cartscreen> {
                 );
               },
             ),
+      ),
       bottomNavigationBar: Container(
         padding: const EdgeInsets.all(15),
         height: 90,

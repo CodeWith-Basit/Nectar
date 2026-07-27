@@ -40,7 +40,7 @@ class _BottomnavigationState extends State<Bottomnavigation> {
       const Explorescreen(),
       const Cartscreen(),
       const Favouritescreen(),
-             Accountscreen(),
+      const Accountscreen(),
     ];
     return PopScope(
       canPop: tabHistory.length <= 1,
